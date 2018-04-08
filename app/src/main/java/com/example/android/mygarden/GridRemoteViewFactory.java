@@ -32,8 +32,8 @@ public class GridRemoteViewFactory implements RemoteViewsService.RemoteViewsFact
 
     @Override
     public void onDataSetChanged() {
-        if(mCursor != null) mCursor.close();
         Uri PLANT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_PLANTS).build();
+        if(mCursor != null) mCursor.close();
         mCursor = mContext.getContentResolver().query(
                 PLANT_URI,
                 null,
@@ -50,7 +50,7 @@ public class GridRemoteViewFactory implements RemoteViewsService.RemoteViewsFact
 
     @Override
     public int getCount() {
-        if(mCursor == null || mCursor.getCount() == 0) return 0;
+        if(mCursor == null) return 0;
         return mCursor.getCount();
     }
 
@@ -67,10 +67,11 @@ public class GridRemoteViewFactory implements RemoteViewsService.RemoteViewsFact
         int plantTypeIndex = mCursor.getColumnIndex(PlantContract.PlantEntry.COLUMN_PLANT_TYPE);
 
         long plantId = mCursor.getLong(idIndex);
-        long timeNow = System.currentTimeMillis();
         long wateredAt = mCursor.getLong(waterTimeIndex);
         long createdAt = mCursor.getLong(createTimeIndex);
         int plantType = mCursor.getInt(plantTypeIndex);
+        long timeNow = System.currentTimeMillis();
+
         int imgRes = PlantUtils.getPlantImageRes(mContext, timeNow - createdAt,
                 timeNow - wateredAt, plantType);
 

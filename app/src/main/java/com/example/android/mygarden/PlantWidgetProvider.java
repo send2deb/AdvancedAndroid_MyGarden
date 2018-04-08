@@ -44,7 +44,7 @@ public class PlantWidgetProvider extends AppWidgetProvider {
         // Completed (6): Set the PendingIntent template in getGardenGridRemoteView to launch PlantDetailActivity
         RemoteViews rv;
         Bundle bundle = appWidgetManager.getAppWidgetOptions(appWidgetId);
-        int minWidth = bundle.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
+        int minWidth = bundle.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
         if(minWidth < 300) {
             rv = getSinglePlantRemoteView(context,imgRes,plantId,showWater);
         } else {
